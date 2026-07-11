@@ -1,15 +1,16 @@
 .container{
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    padding: 2rem;
+    padding: 2rem;  
+    align-items: center;
 }
 
 .text {
- /* font-size: 1.1rem; */
-  max-width: 800px;
+  max-width: 50rem;
   text-align: left;
-  padding: 1.5rem;
+  padding: 0.5rem 1rem;
   border: 1px solid #ddd;
-  border-radius: 8px;
+  border-radius: 1rem;
   background: #f9f9f9;
 }
