@@ -1,28 +1,68 @@
-.card{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* pushes text up + button down */
-  align-items: center;            /* centers children horizontally */
+.container_list{
+    display: flex;
+    flex-direction: column;
+}
 
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 1rem;
-  background: #f9f9f9;
-  height: 10rem;                  /* required for vertical centering */
+.container_carousel{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #dddd;
+    max-height: fit-content;
+}
+
+.carousel_buttons{
+    display: flex;
+    flex-direction: row;
+}
+
+.note{
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+}
+
+.button_2{
+    width: 3rem;
+    height: 2rem;
+    border-width: 1px;
+    border-radius: 1rem;
+    margin: 0.4rem;
+    background-color: silver;
+}
+
+.button_2:hover{
+    background-color: gainsboro;
+    border-width: 2px;
+}
+
+
+.card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    align-items: center;            
+
+    margin: 1rem;
+
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 1rem;
+    background: #f9f9f9;
+    height: 10rem;                 
 }
 
 .text{
-  height: 10rem;
-  width: 30rem;
-  padding: 1rem;
-  text-align: center;
+    height: 10rem;
+    width: 30rem;
+    padding: 1rem;
+    text-align: center;
 
-  display: flex;                  /* center text vertically */
-  justify-content: center;
-  align-items: center;
+    display: flex;                
+    justify-content: center;
+    align-items: center;
 }
 
 .button{
-  max-width: 4rem;
-  margin: 0 auto;                 /* centers horizontally */
+    min-width: 4rem;
+    margin: 0rem;   
 }

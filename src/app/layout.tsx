@@ -3,6 +3,9 @@ import "./globals.css";
 
 import {Header} from "@/components/Header"
 
+import { Geist } from "next/font/google";
+const geist = Geist({ subsets: ["latin"], weight: ["400"] });
+
 export const metadata: Metadata = {
   title: "Revision Site",
   description: "Project i am writing for the purpose of learning next.",
@@ -15,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={geist.className}>
         <Header/>
         {children}
       </body>
