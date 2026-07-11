@@ -15,7 +15,7 @@ export function Flashcard({ data }: FlashcardProps) {
   return (
     <div className={styles.card}>
         <p className={styles.text}>{showQuestion ? data.question : data.answer}</p>
-        <button className = {styles.button} onClick={() => {setShowQuestion(!showQuestion)}}>Flip</button>
+        <button className={styles.button} onClick={() => {setShowQuestion(!showQuestion)}}>Flip</button>
     </div>
   );
 }
@@ -49,8 +49,8 @@ export function FlashcardCarousel({questions} : FlashcardContainerProps){
             <div className={styles.note}>Card {index+1} of {questions.length}</div>
             <Flashcard key={index} data={questions[index]}></Flashcard>
             <div className={styles.carousel_buttons}>
-                <button className={styles.button_2} onClick={()=>{handleLeftRight(-1)}}>Left</button>
-                <button className={styles.button_2} onClick={()=>{handleLeftRight(1)}}>Right</button>
+                <button className={styles.button} onClick={()=>{handleLeftRight(-1)}}>Left</button>
+                <button className={styles.button} onClick={()=>{handleLeftRight(1)}}>Right</button>
             </div>
         </div>
     )

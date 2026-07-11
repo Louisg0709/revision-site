@@ -9,6 +9,9 @@
     align-items: center;
     border: 1px solid #dddd;
     max-height: fit-content;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    background: whitesmoke;
 }
 
 .carousel_buttons{
@@ -21,16 +24,17 @@
     margin-bottom: 0rem;
 }
 
-.button_2{
+.button{
     width: 3rem;
     height: 2rem;
     border-width: 1px;
     border-radius: 1rem;
-    margin: 0.4rem;
+    margin: 0.5rem;
     background-color: silver;
+    border-color: black;
 }
 
-.button_2:hover{
+.button:hover{
     background-color: gainsboro;
     border-width: 2px;
 }
@@ -47,7 +51,7 @@
     padding: 1rem;
     border: 1px solid #ddd;
     border-radius: 1rem;
-    background: #f9f9f9;
+    background: gainsboro;
     height: 10rem;                 
 }
 
@@ -62,7 +66,4 @@
     align-items: center;
 }
 
-.button{
-    min-width: 4rem;
-    margin: 0rem;   
-}
+
