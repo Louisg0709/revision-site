@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import styles from "./layout.module.css"
 
 import {Header} from "@/components/Header"
 
@@ -18,9 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={geist.className}>
+      <body className={`${geist.className}`}>
         <Header/>
-        {children}
+        <div className={styles.body}>{children}</div>
       </body>
     </html>
   );
