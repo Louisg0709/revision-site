@@ -31,12 +31,12 @@
     border-radius: 1rem;
     margin: 0.5rem;
     background-color: silver;
-    border-color: black;
+    border-color: transparent;
 }
 
 .button:hover{
     background-color: gainsboro;
-    border-width: 2px;
+    border-color: black;
 }
 
 
