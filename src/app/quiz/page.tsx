@@ -1,4 +1,3 @@
-import { FlashcardList, FlashcardCarousel } from "@/components/quiz/flashcard";
 import styles from "@/app/page.module.css"
 import { sampleQuestions } from "@/types";
 import { Quiz, QuizQuestion } from "@/components/quiz/quiz";

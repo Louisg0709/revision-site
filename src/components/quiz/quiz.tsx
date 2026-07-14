@@ -65,12 +65,14 @@ type QuizProps = {
   autoNextQuestion?: boolean;
 } 
 
-export function Quiz({questions, randomizeOrder = false, repeat = true, autoNextQuestion = true} : QuizProps){
+export function Quiz({questions, randomizeOrder = false, repeat = false, autoNextQuestion = true} : QuizProps){
     const [questionArray, setQuestionArray] = useState(questions);
     const [index, setIndex] = useState(0);
+    const [reachedEnd, setReachedEnd] = useState(false);
     const [correctAnswers, setCorrectAnswers] = useState(0);
     const [incorrectAnswers, setIncorrectAnswers] = useState(0);
     const [nextQuestionButton, setNexQuestionButton] = useState(false);
+    const [reshuffle, setReshuffle] = useState(0)
 
     useEffect(()=>{
         setNexQuestionButton(false);
@@ -83,10 +85,15 @@ export function Quiz({questions, randomizeOrder = false, repeat = true, autoNext
             setQuestionArray(questions);
         }
         setIndex(0);
-    },[questions, randomizeOrder])
+    },[questions, randomizeOrder, reshuffle])
 
     function incrementIndex(){
-        if (index < questionArray.length){setIndex(index+1)}
+        if (index < questionArray.length-1){setIndex(index+1)}
+        else{
+            setReshuffle(0)
+            if(repeat){setIndex(0)}
+            else{setReachedEnd(true)}
+        }
     }
 
     function resolveQuestion(result: boolean){
@@ -96,7 +103,7 @@ export function Quiz({questions, randomizeOrder = false, repeat = true, autoNext
         setNexQuestionButton(true);
 
         if (autoNextQuestion){
-            const delay = 500
+            const delay = 200
             setTimeout(incrementIndex, delay)
         }
     }
@@ -107,8 +114,21 @@ export function Quiz({questions, randomizeOrder = false, repeat = true, autoNext
                 <div>Correct: {correctAnswers}</div>
                 <div>Incorrect: {incorrectAnswers}</div>
             </div>
-            <QuizQuestion key={questions.indexOf(questionArray[index])} question={questionArray[index]} resolveQuestionOuter={resolveQuestion}/>
-            <div><button disabled={!nextQuestionButton} onClick={incrementIndex}>Next Question</button></div>
+            {reachedEnd ?
+                <div>
+                    <div>You have reached the end of questions. Would you like to restart?</div>
+                    <button onClick={()=>{
+                        setIndex(0)
+                        setReachedEnd(false)
+                    }}> Yes </button>
+                </div>
+                : 
+                <div>
+                    <QuizQuestion key={questions.indexOf(questionArray[index])} question={questionArray[index]} resolveQuestionOuter={resolveQuestion}/>
+                    <div><button disabled={!nextQuestionButton} onClick={incrementIndex}>Next Question</button></div>
+                </div>
+            }
+
         </div>
     )
 }
