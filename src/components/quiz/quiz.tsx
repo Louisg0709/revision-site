@@ -3,14 +3,15 @@
 import { Question } from "@/types"
 import { useEffect, useState } from "react"
 
-import styles from "./quiz.module.css"
+import questionStyles from "./question.module.css"
 import { shuffle } from "../utililtyfunctions"
 
 type QuizQuestionProps = {
-  question: Question
+  question: Question;
+  resolveQuestionOuter : Function | null;
 } 
 
-export function QuizQuestion({question}: QuizQuestionProps){
+export function QuizQuestion({question, resolveQuestionOuter = null}: QuizQuestionProps){
     const [correctAns, setCorrectAns] = useState(0);
     const [options, setOptions] = useState(["","","",""])
     const [answered, setAnswered] = useState(-1)
@@ -23,11 +24,8 @@ export function QuizQuestion({question}: QuizQuestionProps){
     },[question])
 
     function resolveQuestion(choice: number){
-        focus();
+        if(resolveQuestionOuter){resolveQuestionOuter(choice===correctAns)}
         setAnswered(choice)
-        if (choice == correctAns){
-            console.log("correct")
-        }
     }
 
     const buttons = options.map((opt, i)=>{
@@ -35,14 +33,14 @@ export function QuizQuestion({question}: QuizQuestionProps){
         const isCorrect = correctAns === i
 
         let cssClass = ""
-        if (isCorrect && (answered !== -1)){cssClass = styles.correct}
-        if (isClicked && !isCorrect){cssClass = styles.incorrect}
-        const hoverClass = ((hoveredIndex===i) && (answered === -1)) ? styles.hovered : "";
+        if (isCorrect && (answered !== -1)){cssClass = questionStyles.correct}
+        if (isClicked && !isCorrect){cssClass = questionStyles.incorrect}
+        const hoverClass = ((hoveredIndex===i) && (answered === -1)) ? questionStyles.hovered : "";
 
         return(
             <button key={i}
             onClick={()=>{resolveQuestion(i)}} 
-            className={`${cssClass} ${styles.answer_button} ${hoverClass}`} 
+            className={`${cssClass} ${questionStyles.answer_button} ${hoverClass}`} 
             disabled={answered!==-1}
             onMouseEnter={()=>setHoveredIndex(i)}
             onMouseOut={()=>{setHoveredIndex(-1)}}
@@ -51,11 +49,66 @@ export function QuizQuestion({question}: QuizQuestionProps){
     })
 
     return(
-        <div className={styles.container}>
-            <p className={styles.question}>{question.question}</p>
-            <div className={styles.grid}>
+        <div className={questionStyles.container}>
+            <p className={questionStyles.question}>{question.question}</p>
+            <div className={questionStyles.grid}>
                 {buttons}
             </div>
+        </div>
+    )
+}
+
+type QuizProps = {
+  questions: Question[];
+  randomizeOrder?: boolean;
+  repeat?: boolean;
+  autoNextQuestion?: boolean;
+} 
+
+export function Quiz({questions, randomizeOrder = false, repeat = true, autoNextQuestion = true} : QuizProps){
+    const [questionArray, setQuestionArray] = useState(questions);
+    const [index, setIndex] = useState(0);
+    const [correctAnswers, setCorrectAnswers] = useState(0);
+    const [incorrectAnswers, setIncorrectAnswers] = useState(0);
+    const [nextQuestionButton, setNexQuestionButton] = useState(false);
+
+    useEffect(()=>{
+        setNexQuestionButton(false);
+    }, [index])
+
+    useEffect(()=>{
+        if (randomizeOrder){
+            setQuestionArray(shuffle<Question>(questions));
+        }else{
+            setQuestionArray(questions);
+        }
+        setIndex(0);
+    },[questions, randomizeOrder])
+
+    function incrementIndex(){
+        if (index < questionArray.length){setIndex(index+1)}
+    }
+
+    function resolveQuestion(result: boolean){
+        if (result){setCorrectAnswers(correctAnswers+1)}
+        else {setIncorrectAnswers(incorrectAnswers+1)}
+
+        setNexQuestionButton(true);
+
+        if (autoNextQuestion){
+            const delay = 500
+            setTimeout(incrementIndex, delay)
+        }
+    }
+
+    return(
+        <div>
+            <div>
+                <div>Correct: {correctAnswers}</div>
+                <div>Incorrect: {incorrectAnswers}</div>
+            </div>
+            <QuizQuestion key={questions.indexOf(questionArray[index])} question={questionArray[index]} resolveQuestionOuter={resolveQuestion}/>
+            <div><button disabled={!nextQuestionButton} onClick={incrementIndex}>Next Question</button></div>
         </div>
     )
 }
