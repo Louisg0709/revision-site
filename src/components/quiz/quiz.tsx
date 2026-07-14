@@ -4,6 +4,8 @@ import { Question } from "@/types"
 import { useEffect, useState } from "react"
 
 import questionStyles from "./question.module.css"
+import quizStyles from  "./quiz.module.css"
+
 import { shuffle } from "../utililtyfunctions"
 
 type QuizQuestionProps = {
@@ -65,7 +67,7 @@ type QuizProps = {
   autoNextQuestion?: boolean;
 } 
 
-export function Quiz({questions, randomizeOrder = false, repeat = false, autoNextQuestion = true} : QuizProps){
+export function Quiz({questions, randomizeOrder = false, repeat = false, autoNextQuestion = false} : QuizProps){
     const [questionArray, setQuestionArray] = useState(questions);
     const [index, setIndex] = useState(0);
     const [reachedEnd, setReachedEnd] = useState(false);
@@ -109,10 +111,10 @@ export function Quiz({questions, randomizeOrder = false, repeat = false, autoNex
     }
 
     return(
-        <div>
-            <div>
-                <div>Correct: {correctAnswers}</div>
-                <div>Incorrect: {incorrectAnswers}</div>
+        <div className={quizStyles.container}>
+            <div className={quizStyles.info}>
+                <div className={`${quizStyles.info_item} ${quizStyles.correct_border}`}>Correct: {correctAnswers}</div>
+                <div className={`${quizStyles.info_item} ${quizStyles.incorrect_border}`}>Incorrect: {incorrectAnswers}</div>
             </div>
             {reachedEnd ?
                 <div>
@@ -123,9 +125,9 @@ export function Quiz({questions, randomizeOrder = false, repeat = false, autoNex
                     }}> Yes </button>
                 </div>
                 : 
-                <div>
+                <div className={quizStyles.container}>
                     <QuizQuestion key={questions.indexOf(questionArray[index])} question={questionArray[index]} resolveQuestionOuter={resolveQuestion}/>
-                    <div><button disabled={!nextQuestionButton} onClick={incrementIndex}>Next Question</button></div>
+                    <div className={quizStyles.button}><button disabled={!nextQuestionButton} onClick={incrementIndex}>Next Question</button></div>
                 </div>
             }
 

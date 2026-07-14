@@ -1,0 +1,52 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info{
+    margin: 0rem;
+    justify-content: center;
+    padding: 0rem;
+    display: flex;
+    flex-direction: row;
+    /*
+    background-color: whitesmoke;
+    border: 1px solid #dddd;
+    border-radius: 1rem;
+    */
+    min-height: 2rm;
+}
+
+.button{
+    margin: 1rem;
+}
+.button button{
+    border-radius: 1.5rem;
+    padding: 0.5rem;
+    font-size: 1rem;
+    background-color: silver;
+    border-width: 1px;
+    border-color: #dddd;
+}
+.button button:hover{
+    background-color: gainsboro;
+    border-color: black;
+}
+
+.info_item{
+    padding: 0.5rem;
+    background-color: whitesmoke;
+    margin: 1rem;
+    border: 2px solid #dddd;
+    border-radius: 5rem;
+    text-align: center;
+    max-width: fit-content;
+}
+
+.correct_border{
+    border-color: green;
+}
+.incorrect_border{
+    border-color: red;
+}

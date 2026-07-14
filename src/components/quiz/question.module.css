@@ -1,58 +1,58 @@
-    .container{
-        display: flex;
-        flex-direction: column;
+.container{
+    display: flex;
+    flex-direction: column;
 
-        align-items: center;
-        text-align: center;
+    align-items: center;
+    text-align: center;
 
-        border: 1px solid #dddd;
-        min-height:  10rem;
-        border-radius: 1rem;
-        padding: 1rem;
-        background: whitesmoke;
-        min-height: 15rem;
-    }
+    border: 1px solid #dddd;
+    min-height:  10rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    background: whitesmoke;
+    min-height: 15rem;
+}
 
-    .question{
-        margin: auto
-    }
+.question{
+    margin: auto
+}
 
-    .grid{
+.grid{
     display: grid;
     grid-template-columns: repeat(2, 1fr); 
     grid-template-rows: repeat(2, 1fr);
     width: 100%;
 
     margin-top: auto;
-    }
+}
 
-    .answer_button{
-        margin: 0.5rem;
-        padding: 1rem;
-        width: 98%;
-        height: 90%;
-        background-color: silver;
-        border-width: 1px;
-        border-radius: 1rem;
-        border-color: transparent;
-        border-style: solid;
-    }
+.answer_button{
+    margin: 0.5rem;
+    padding: 1rem;
+    width: 98%;
+    height: 90%;
+    background-color: silver;
+    border-width: 1px;
+    border-radius: 1rem;
+    border-color: transparent;
+    border-style: solid;
+}
 
-    .answer_button:disabled{
-        pointer-events: none;
-        color: black;
-    }
+.answer_button:disabled{
+    pointer-events: none;
+    color: black;
+}
 
-    .correct{
-        background-color: lightgreen;
-        border-color: black;
-    }
-    .incorrect{
-        background-color: coral;
-        border-color: black;
-    }
-    
-    .hovered{
-        background-color: gainsboro;
-        border-color: black;
-    }
+.correct{
+    background-color: lightgreen;
+    border-color: black;
+}
+.incorrect{
+    background-color: coral;
+    border-color: black;
+}
+
+.hovered{
+    background-color: gainsboro;
+    border-color: black;
+}
