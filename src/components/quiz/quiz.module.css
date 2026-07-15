@@ -23,6 +23,7 @@
 }
 .button button{
     border-radius: 1.5rem;
+    min-width: 4rem;
     padding: 0.5rem;
     font-size: 1rem;
     background-color: silver;
@@ -35,7 +36,7 @@
 }
 
 .info_item{
-    padding: 0.5rem;
+    padding: 1rem;
     background-color: whitesmoke;
     margin: 1rem;
     border: 2px solid #dddd;

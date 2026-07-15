@@ -1,7 +1,7 @@
 'use client'
 
 import { Question } from "@/types"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 
 import questionStyles from "./question.module.css"
 import quizStyles from  "./quiz.module.css"
@@ -67,20 +67,22 @@ type QuizProps = {
   autoNextQuestion?: boolean;
 } 
 
-export function Quiz({questions, randomizeOrder = false, repeat = false, autoNextQuestion = false} : QuizProps){
+export function Quiz({questions, randomizeOrder = false, repeat = false, autoNextQuestion = true} : QuizProps){
     const [questionArray, setQuestionArray] = useState(questions);
     const [index, setIndex] = useState(0);
     const [reachedEnd, setReachedEnd] = useState(false);
     const [correctAnswers, setCorrectAnswers] = useState(0);
     const [incorrectAnswers, setIncorrectAnswers] = useState(0);
-    const [nextQuestionButton, setNexQuestionButton] = useState(false);
+    const [nextQuestionButton, setNextQuestionButton] = useState(false);
     const [reshuffle, setReshuffle] = useState(0)
+    const [mounted, setMounted] = useState(false);
 
     useEffect(()=>{
-        setNexQuestionButton(false);
+        setNextQuestionButton(false);
     }, [index])
 
     useEffect(()=>{
+        setMounted(true)
         if (randomizeOrder){
             setQuestionArray(shuffle<Question>(questions));
         }else{
@@ -92,7 +94,7 @@ export function Quiz({questions, randomizeOrder = false, repeat = false, autoNex
     function incrementIndex(){
         if (index < questionArray.length-1){setIndex(index+1)}
         else{
-            setReshuffle(0)
+            setReshuffle(reshuffle+1)
             if(repeat){setIndex(0)}
             else{setReachedEnd(true)}
         }
@@ -102,12 +104,16 @@ export function Quiz({questions, randomizeOrder = false, repeat = false, autoNex
         if (result){setCorrectAnswers(correctAnswers+1)}
         else {setIncorrectAnswers(incorrectAnswers+1)}
 
-        setNexQuestionButton(true);
+        setNextQuestionButton(true);
 
         if (autoNextQuestion){
-            const delay = 200
+            const delay = 1
             setTimeout(incrementIndex, delay)
         }
+    }
+
+    if (!mounted){
+        return <>Loading</>
     }
 
     return(
@@ -117,16 +123,16 @@ export function Quiz({questions, randomizeOrder = false, repeat = false, autoNex
                 <div className={`${quizStyles.info_item} ${quizStyles.incorrect_border}`}>Incorrect: {incorrectAnswers}</div>
             </div>
             {reachedEnd ?
-                <div>
-                    <div>You have reached the end of questions. Would you like to restart?</div>
-                    <button onClick={()=>{
+                <div className={quizStyles.container}>
+                    <div className={quizStyles.info_item}>You have reached the end of the questions. Would you like to restart?</div>
+                    <div className={quizStyles.button}><button onClick={()=>{
                         setIndex(0)
                         setReachedEnd(false)
-                    }}> Yes </button>
+                    }}> Yes </button></div>
                 </div>
                 : 
                 <div className={quizStyles.container}>
-                    <QuizQuestion key={questions.indexOf(questionArray[index])} question={questionArray[index]} resolveQuestionOuter={resolveQuestion}/>
+                    <QuizQuestion key={questionArray[index].id} question={questionArray[index]} resolveQuestionOuter={resolveQuestion}/>
                     <div className={quizStyles.button}><button disabled={!nextQuestionButton} onClick={incrementIndex}>Next Question</button></div>
                 </div>
             }
