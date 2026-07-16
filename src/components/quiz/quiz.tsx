@@ -107,7 +107,7 @@ export function Quiz({questions, randomizeOrder = false, repeat = false, autoNex
         setNextQuestionButton(true);
 
         if (autoNextQuestion){
-            const delay = 1
+            const delay = 400
             setTimeout(incrementIndex, delay)
         }
     }
