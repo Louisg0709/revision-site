@@ -1,9 +1,9 @@
 'use client'
 
 import styles from "./page.module.css"
-import { sampleQuestions } from "@/types";
 import { Quiz, QuizQuestion } from "@/components/quiz/quiz";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { SetContext } from "@/types/SetContext";
 
 
 
@@ -11,6 +11,8 @@ export default function Home() {
   const [randomize, setRandomize] = useState(false);
   const [restart, setRestart] = useState(false);
   const [autoNext, setAutoNext] = useState(false);
+
+  const setData = useContext(SetContext)
 
   return (
     <div className= {styles.container}>
@@ -23,7 +25,7 @@ export default function Home() {
       <label htmlFor="nextQuestion">Auto next question:</label>
       <input onChange={()=>{setAutoNext(!autoNext)}} type="checkbox" id="nextQuestion"/>
     </form>
-    <Quiz key={`${randomize}`} questions={sampleQuestions} randomizeOrder={randomize} repeat={restart} autoNextQuestion={autoNext}></Quiz>
+    <Quiz key={`${randomize}`} questions={setData.questions} randomizeOrder={randomize} repeat={restart} autoNextQuestion={autoNext}></Quiz>
     </div>
   );
 }

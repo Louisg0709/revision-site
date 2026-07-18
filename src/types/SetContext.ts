@@ -10,4 +10,4 @@ type QuestionContextType = {
     setSetId: Function
 }
 
-export const QuestionContext = createContext<QuestionContextType>({questions: sampleQuestions, setQuestions: ()=>{}, setId: 0, setSetId: ()=>{}});
+export const SetContext = createContext<QuestionContextType>({questions: sampleQuestions, setQuestions: ()=>{}, setId: 0, setSetId: ()=>{}});
