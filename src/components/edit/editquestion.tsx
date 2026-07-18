@@ -5,13 +5,13 @@ import { useState } from "react";
 
 import styles from "./editquestion.module.css"
 
-type CreateQuestionProps = {
+type EditQuestionProps = {
     setQuestion: Function;
     question: Question;
     index: number;
 }
 
-export function EditQuestion({setQuestion, question, index} : CreateQuestionProps){
+export function EditQuestion({setQuestion, question, index} : EditQuestionProps){
     const [changesMade, setChangesMade] = useState(false)
 
     function submit(e: React.FormEvent<HTMLFormElement>){

@@ -6,9 +6,6 @@ import { EditSet } from "@/components/edit/editset";
 export default function About(){
 
     return (
-    <div className={styles.container}>
-      <p className={styles.text}>Work in progress.</p>
       <EditSet/>
-    </div>
   );
 }

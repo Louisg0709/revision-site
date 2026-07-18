@@ -10,8 +10,8 @@ export type Question = {
 export function ConstructQuestion(id: number): Question{
     return({
         id,
-        question: "testq",
-        answer: "testa",
+        question: "",
+        answer: "",
         alternative1: "",
         alternative2: "",
         alternative3: ""

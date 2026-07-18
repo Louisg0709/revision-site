@@ -6,11 +6,11 @@
     text-align: center;
 
     border: 1px solid #dddd;
-    min-height:  10rem;
+    min-height:  15rem;
+    min-width: 40rem;
     border-radius: 1rem;
     padding: 1rem;
     background: whitesmoke;
-    min-height: 15rem;
 }
 
 .question{
