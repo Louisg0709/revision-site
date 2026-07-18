@@ -5,6 +5,8 @@ import styles from "./layout.module.css"
 import {Header} from "@/components/Header"
 
 import { Geist } from "next/font/google";
+import { QuestionContext } from "@/types/SetContext";
+import { sampleQuestions } from "@/types";
 const geist = Geist({ subsets: ["latin"], weight: ["400"] });
 
 export const metadata: Metadata = {
@@ -21,7 +23,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${geist.className}`}>
         <Header/>
+        <QuestionContext.Provider value={{questions: sampleQuestions, setQuestions: ()=>{}, setSetId:()=>{}, setId: 0}}>
         <div className={styles.body}>{children}</div>
+        </QuestionContext.Provider>
       </body>
     </html>
   );
