@@ -7,6 +7,21 @@ import { SetContext } from "@/types/SetContext"
 
 import styles from "./editset.module.css"
 
+function getNewQuestionId(questions: Question[]){
+    let id = 0;
+    let isUnique = false;
+    while (!isUnique){
+        isUnique = true;
+        for (let i = 0; i<questions.length; i++){
+            if (id==questions[i].id){
+                id+=1;
+                isUnique = false;
+            }
+        }
+    }
+    return id;
+}
+
 export function EditSet(){
     const setData = useContext(SetContext);
 
@@ -20,7 +35,15 @@ export function EditSet(){
                 setData.setQuestions(newQuestions);
             }}/>
             <div>
-                <button>Insert Question</button>
+                <button onClick={()=>{
+                    const newQuestions = [
+                        ...setData.questions.slice(0, index+1),
+                        ConstructQuestion(getNewQuestionId(setData.questions)),
+                        ...setData.questions.slice(index+1)
+                    ]
+                    setData.setQuestions(newQuestions)
+                }}>Insert Question</button>
+
                 <button onClick={()=>{
                     if(setData.questions.length > 1){
                         setData.setQuestions(setData.questions.filter((q)=> q.id!==value.id ))
@@ -30,12 +53,31 @@ export function EditSet(){
         </div>
     )});
 
+    const [titleChanged, setTitleChanged] = useState(false)
+    function submitTitle(e: React.FormEvent<HTMLFormElement>){
+        setTitleChanged(false)
+        e.preventDefault()
+        const data = new FormData(e.currentTarget);
+        setData.setTitle(data.get("title"))
+    }
+
+    function onTitleFormChange(e: React.ChangeEvent<HTMLFormElement>){
+        e.preventDefault()
+        const data = new FormData(e.currentTarget);
+        if (data.get("title") === setData.title){
+            setTitleChanged(false)
+        }else{
+            setTitleChanged(true)
+        }
+    }
+
     return(
         <div className={styles.container}>
-            <button>Upload Changes</button>
-            <form>
+            <button>Upload Changes (to be implemented in future)</button>
+            <form onSubmit={submitTitle} onChange={onTitleFormChange}>
                 <label>Title: </label>
-                <input type="text" defaultValue={setData.setId}/>
+                <input name="title" type="text" defaultValue={setData.title}/>
+                <input type="submit" value="Save" disabled={!titleChanged}/>
             </form>
             {questions}
         </div>

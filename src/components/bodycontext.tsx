@@ -12,9 +12,9 @@ type BodyContextProps = {
 export function BodyContext({children} : BodyContextProps){
     const [setId, setSetId] = useState(0);
     const [questions, setQuestions] = useState(sampleQuestions)
-
+    const [title, setTitle] = useState("Sample questions")
     return(
-        <SetContext.Provider value={{questions, setQuestions, setSetId, setId}}>
+        <SetContext.Provider value={{questions, setQuestions, setSetId, setId, title, setTitle}}>
             {children}
         </SetContext.Provider>
     )

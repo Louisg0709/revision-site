@@ -3,11 +3,13 @@
 import { createContext } from "react";
 import { Question, sampleQuestions } from "./question";
 
-type QuestionContextType = {
+type SetContextType = {
     questions: Question[],
     setQuestions: Function,
     setId: number,
-    setSetId: Function
+    setSetId: Function,
+    title: string,
+    setTitle: Function
 }
 
-export const SetContext = createContext<QuestionContextType>({questions: sampleQuestions, setQuestions: ()=>{}, setId: 0, setSetId: ()=>{}});
+export const SetContext = createContext<SetContextType>({questions: sampleQuestions, setQuestions: ()=>{}, setId: 0, setSetId: ()=>{}, title: "Sample", setTitle: ()=>{}});
