@@ -34,7 +34,7 @@ export function EditSet(){
                 })
                 setData.setQuestions(newQuestions);
             }}/>
-            <div>
+            <div className={styles.insert_delete}>
                 <button onClick={()=>{
                     const newQuestions = [
                         ...setData.questions.slice(0, index+1),
@@ -52,6 +52,10 @@ export function EditSet(){
             </div>
         </div>
     )});
+
+    function upload(){
+        alert("This feature is a work in progress.")
+    }
 
     const [titleChanged, setTitleChanged] = useState(false)
     function submitTitle(e: React.FormEvent<HTMLFormElement>){
@@ -73,11 +77,11 @@ export function EditSet(){
 
     return(
         <div className={styles.container}>
-            <button>Upload Changes (to be implemented in future)</button>
-            <form onSubmit={submitTitle} onChange={onTitleFormChange}>
+            <button onClick={upload} className={styles.upload_button}>Upload Changes</button>
+            <form onSubmit={submitTitle} onChange={onTitleFormChange} className={styles.title_form}>
                 <label>Title: </label>
-                <input name="title" type="text" defaultValue={setData.title}/>
-                <input type="submit" value="Save" disabled={!titleChanged}/>
+                <input className={styles.title_text} name="title" type="text" defaultValue={setData.title}/>
+                <input className={styles.title_save} type="submit" value="Save" disabled={!titleChanged}/>
             </form>
             {questions}
         </div>
