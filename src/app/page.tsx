@@ -5,6 +5,8 @@ import styles from "./page.module.css"
 import { ConstructQuestion, sampleQuestions } from "@/types";
 import { useContext } from "react";
 import { SetContext } from "@/types/SetContext";
+import { sql } from "@/lib/database";
+import { ListSets } from "@/components/listSets";
 
 
 
@@ -17,7 +19,7 @@ export default function Home() {
       {/*These buttons are simply for testing while the data base isn't implemented*/}
       <button onClick={()=>{setData.setQuestions(sampleQuestions)}}>Activate sample question set</button>
       <button onClick={()=>{setData.setQuestions([ConstructQuestion(0)])}}>Activae blank question set</button>
-
+      
     </div>
   );
 }
