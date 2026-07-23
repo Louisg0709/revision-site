@@ -16,10 +16,11 @@ export function FindSets(){
         setResults(res);
     }
 
-    async function activateSet(id: number){
+    async function activateSet(id: number, title: string){
         console.log(`Activating set ${id}.`) //actual function to be implemented
         const question_data = await getQuestions(id);
         setData.setSetId(id);
+        setData.setTitle(title);
         setData.setQuestions(question_data.map((q)=>{
             return({
                 id: q.id_in_set,
@@ -36,7 +37,7 @@ export function FindSets(){
         return(<div key={s.id}>
             {s.title}
             <button onClick={()=>{
-                activateSet(s.id)
+                activateSet(s.id, s.title)
             }}>Activate set</button>
         </div>)
     })

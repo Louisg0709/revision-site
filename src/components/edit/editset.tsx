@@ -1,6 +1,6 @@
 'use client'
 
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { EditQuestion} from "./editquestion"
 import { Question, ConstructQuestion } from "@/types"
 import { SetContext } from "@/types/SetContext"
@@ -57,30 +57,28 @@ export function EditSet(){
         alert("This feature is a work in progress.")
     }
 
+    const [title, setTitle] = useState(setData.title);
     const [titleChanged, setTitleChanged] = useState(false)
-    function submitTitle(e: React.FormEvent<HTMLFormElement>){
-        setTitleChanged(false)
-        e.preventDefault()
-        const data = new FormData(e.currentTarget);
-        setData.setTitle(data.get("title"))
-    }
 
-    function onTitleFormChange(e: React.ChangeEvent<HTMLFormElement>){
+    useEffect(()=>{
+        setTitle(setData.title);
+    }, [setData.title]);
+
+    function submitTitle(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault()
-        const data = new FormData(e.currentTarget);
-        if (data.get("title") === setData.title){
-            setTitleChanged(false)
-        }else{
-            setTitleChanged(true)
-        }
+        setTitleChanged(false)
+        setData.setTitle(title)
     }
 
     return(
         <div className={styles.container}>
             <button onClick={upload} className={styles.upload_button}>Upload Changes</button>
-            <form key={setData.setId} onSubmit={submitTitle} onChange={onTitleFormChange} className={styles.title_form}>
+            <form onSubmit={submitTitle} className={styles.title_form}>
                 <label>Title: </label>
-                <input className={styles.title_text} name="title" type="text" defaultValue={setData.title}/>
+                <input className={styles.title_text} name="title" type="text" value={title} onChange={(e)=>{
+                    setTitle(e.target.value);
+                    setTitleChanged(e.target.value !== setData.title);
+                    }}/>
                 <input className={styles.title_save} type="submit" value="Save" disabled={!titleChanged}/>
             </form>
             {questions}
