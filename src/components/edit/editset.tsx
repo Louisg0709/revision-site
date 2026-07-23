@@ -78,7 +78,7 @@ export function EditSet(){
     return(
         <div className={styles.container}>
             <button onClick={upload} className={styles.upload_button}>Upload Changes</button>
-            <form onSubmit={submitTitle} onChange={onTitleFormChange} className={styles.title_form}>
+            <form key={setData.setId} onSubmit={submitTitle} onChange={onTitleFormChange} className={styles.title_form}>
                 <label>Title: </label>
                 <input className={styles.title_text} name="title" type="text" defaultValue={setData.title}/>
                 <input className={styles.title_save} type="submit" value="Save" disabled={!titleChanged}/>
