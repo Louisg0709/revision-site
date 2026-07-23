@@ -1,12 +1,10 @@
 'use client'
 
-import { FlashcardList, FlashcardCarousel } from "@/components/flashcard/flashcard";
 import styles from "./page.module.css"
 import { ConstructQuestion, sampleQuestions } from "@/types";
 import { useContext } from "react";
 import { SetContext } from "@/types/SetContext";
-import { sql } from "@/lib/database";
-import { ListSets } from "@/components/listSets";
+import { FindSets } from "@/components/findSets";
 
 
 
@@ -20,6 +18,8 @@ export default function Home() {
       <button onClick={()=>{setData.setQuestions(sampleQuestions)}}>Activate sample question set</button>
       <button onClick={()=>{setData.setQuestions([ConstructQuestion(0)])}}>Activae blank question set</button>
       
+
+      <FindSets/>
     </div>
   );
 }
