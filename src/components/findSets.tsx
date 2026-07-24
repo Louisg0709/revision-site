@@ -1,12 +1,13 @@
 'use client'
 
-import { searchSets, getQuestions } from "@/lib/databaseActions";
+import { searchSets, getQuestions, newBlankSet } from "@/lib/databaseActions";
 import { SetContext } from "@/types/SetContext";
 import { useContext, useState } from "react"
 
 export function FindSets(){
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<{ title: string, id: number }[]>([]);
+    const [newSetTitle, setNewSetTitle] = useState("")
 
     const setData = useContext(SetContext)
 
@@ -17,7 +18,6 @@ export function FindSets(){
     }
 
     async function activateSet(id: number, title: string){
-        console.log(`Activating set ${id}.`) //actual function to be implemented
         const question_data = await getQuestions(id);
         setData.setSetId(id);
         setData.setTitle(title);
@@ -42,8 +42,18 @@ export function FindSets(){
         </div>)
     })
 
+    async function createNewSet(e: React.FormEvent<HTMLFormElement>){
+        e.preventDefault();
+        const id = await newBlankSet(newSetTitle);
+        activateSet(id, newSetTitle)
+    }
+
     return(
         <div>
+            <form onSubmit={createNewSet}>
+                <input onChange={(e)=>{setNewSetTitle(e.target.value)}} type="text" />
+                <button type="submit"> Create new set</button>
+            </form>
             <form onSubmit={handleSearch}>
                 <input type="text" value={query} onChange={(e)=>{setQuery(e.target.value)}}/>
                 <button type="submit">Search</button>

@@ -18,7 +18,8 @@ export async function getQuestions(id: number){
 }
 
 export async function updateSet(id: number, questions: Question[], title: string){
-    //Update the title
+    //Update the title 
+    //Think this is probably wrong
     var updates = [
         sql`
             UPDATE sets
@@ -36,6 +37,19 @@ export async function updateSet(id: number, questions: Question[], title: string
             VALUES (${id}, ${questions[i].id}, ${questions[i].question}, ${questions[i].answer}, ${questions[i].alternative1}, ${questions[i].alternative2}, ${questions[i].alternative3})
         `)
     }
+}
 
-    await sql.transaction(updates);
+export async function newBlankSet(title: string){
+    const res = await sql`
+        WITH new_set AS (
+            INSERT INTO sets (title)
+            VALUES (${title})
+            RETURNING id
+        )
+        INSERT INTO questions(set_id)
+        SELECT id FROM new_set
+        RETURNING set_id
+    `
+    const newId = res[0].set_id as number;
+    return newId;
 }

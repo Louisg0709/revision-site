@@ -56,7 +56,7 @@ export function EditSet(){
 
     function upload(){
         updateSet(setData.setId, setData.questions, setData.title)
-        alert("Uploading")
+        alert("Uploading set")
     }
 
     const [title, setTitle] = useState(setData.title);
@@ -77,7 +77,7 @@ export function EditSet(){
             <button onClick={upload} className={styles.upload_button}>Upload Changes</button>
             <form onSubmit={submitTitle} className={styles.title_form}>
                 <label>Title: </label>
-                <input className={styles.title_text} name="title" type="text" value={title} onChange={(e)=>{
+                <input className={styles.title_text} maxLength={50} name="title" type="text" value={title} onChange={(e)=>{
                     setTitle(e.target.value);
                     setTitleChanged(e.target.value !== setData.title);
                     }}/>

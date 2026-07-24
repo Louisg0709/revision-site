@@ -49,17 +49,17 @@ export function EditQuestion({setQuestion, question, index} : EditQuestionProps)
         <form onSubmit={submit} className={styles.form} onChange={onChange}>
             <div className={styles.text_input}>
                 <u>Question</u>
-                <textarea name="question" defaultValue={question.question} />
+                <textarea name="question" defaultValue={question.question} maxLength={300} />
             </div>
             <div className={styles.text_input}>
                 <u>Answer</u>
-                <textarea name="answer" defaultValue={question.answer} />
+                <textarea name="answer" defaultValue={question.answer} maxLength={300}/>
             </div>
             <div className={styles.text_input}>
                 <u>Alternatives</u>
-                <textarea name="alt1" defaultValue={question.alternative1} />
-                <textarea name="alt2" defaultValue={question.alternative2} />
-                <textarea name="alt3" defaultValue={question.alternative3} />
+                <textarea name="alt1" defaultValue={question.alternative1} maxLength={300}/>
+                <textarea name="alt2" defaultValue={question.alternative2} maxLength={300}/>
+                <textarea name="alt3" defaultValue={question.alternative3} maxLength={300}/>
             </div>
             <input disabled={!changesMade} className={styles.submit_button} type="submit" value="Save"/>
         </form>
