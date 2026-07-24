@@ -1,5 +1,6 @@
 'use server'
 
+import { Question } from "@/types";
 import { sql } from "./database"
 
 export async function searchSets(query: string) {
@@ -14,4 +15,27 @@ export async function getQuestions(id: number){
         WHERE set_id = ${id};`  as {id_in_set: number, question: string, answer: string, alt1: string, alt2: string, alt3: string}[];
 
     return questions;
+}
+
+export async function updateSet(id: number, questions: Question[], title: string){
+    //Update the title
+    var updates = [
+        sql`
+            UPDATE sets
+            SET title = ${title}
+            WHERE id = ${id}
+        `,   
+        sql`
+            DELETE FROM questions
+            WHERE  set_id = ${id}
+        `
+    ]
+    for (let i = 0; i<questions.length; i++){
+        updates.push(sql`
+            INSERT INTO questions (set_id, id_in_set, question, answer, alt1, alt2, alt3)
+            VALUES (${id}, ${questions[i].id}, ${questions[i].question}, ${questions[i].answer}, ${questions[i].alternative1}, ${questions[i].alternative2}, ${questions[i].alternative3})
+        `)
+    }
+
+    await sql.transaction(updates);
 }

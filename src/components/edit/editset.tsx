@@ -6,6 +6,7 @@ import { Question, ConstructQuestion } from "@/types"
 import { SetContext } from "@/types/SetContext"
 
 import styles from "./editset.module.css"
+import { updateSet } from "@/lib/databaseActions"
 
 function getNewQuestionId(questions: Question[]){
     let id = 0;
@@ -54,7 +55,8 @@ export function EditSet(){
     )});
 
     function upload(){
-        alert("This feature is a work in progress.")
+        updateSet(setData.setId, setData.questions, setData.title)
+        alert("Uploading")
     }
 
     const [title, setTitle] = useState(setData.title);
