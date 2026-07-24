@@ -26,9 +26,9 @@ export function FindSets(){
                 id: q.id_in_set,
                 question: q.question,
                 answer: q.answer,
-                alternate1: q.alt1,
-                alternate2: q.alt2,
-                alternate3: q.alt3
+                alternative1: q.alt1,
+                alternative2: q.alt2,
+                alternative3: q.alt3
             })
         }))
     }

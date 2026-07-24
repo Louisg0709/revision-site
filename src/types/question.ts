@@ -45,7 +45,7 @@ export const sampleQuestions: Question[] = [
     },
     {
         id: 4,
-        question: "Which ocean is the largest on Earth, covering more than 30% of the planet’s surface and containing the deepest known point, the Mariana Trench?",
+        question: "Which ocean is the largest on Earth, covering more than 30% of the planet's surface and containing the deepest known point, the Mariana Trench?",
         answer: "Pacific Ocean",
         alternative1: "Atlantic Ocean",
         alternative2: "Indian Ocean",
