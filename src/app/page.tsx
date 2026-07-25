@@ -2,7 +2,7 @@
 
 import { useContext } from "react";
 import { SetContext } from "@/types/SetContext";
-import { FindSets } from "@/components/findSets";
+import { FindSets } from "@/components/find/findSets";
 
 
 

@@ -37,6 +37,8 @@ export async function updateSet(id: number, questions: Question[], title: string
             VALUES (${id}, ${questions[i].id}, ${questions[i].question}, ${questions[i].answer}, ${questions[i].alternative1}, ${questions[i].alternative2}, ${questions[i].alternative3})
         `)
     }
+
+    sql.transaction(updates);   
 }
 
 export async function newBlankSet(title: string){
@@ -52,4 +54,19 @@ export async function newBlankSet(title: string){
     `
     const newId = res[0].set_id as number;
     return newId;
+}
+
+export async function deleteSet(id: number){
+    const updates = [
+    sql`
+        DELETE FROM questions
+        WHERE set_id = ${id}
+    `,
+    sql`
+        DELETE FROM sets
+        WHERE id = ${id}
+    `
+    ];
+
+    return await sql.transaction(updates);
 }

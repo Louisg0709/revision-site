@@ -2,19 +2,24 @@
 
 import { searchSets, getQuestions, newBlankSet } from "@/lib/databaseActions";
 import { SetContext } from "@/types/SetContext";
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { SetCard } from "./setCard";
 
 export function FindSets(){
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<{ title: string, id: number }[]>([]);
-    const [newSetTitle, setNewSetTitle] = useState("")
+    const [newSetTitle, setNewSetTitle] = useState("");
 
     const setData = useContext(SetContext)
 
     async function handleSearch(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
+        search()
+    }
+
+    async function search(){
         const res = await searchSets(query);
-        setResults(res);
+        setResults(res)
     }
 
     async function activateSet(id: number, title: string){
@@ -34,18 +39,14 @@ export function FindSets(){
     }
 
     const options = results.map((s)=>{
-        return(<div key={s.id}>
-            {s.title}
-            <button onClick={()=>{
-                activateSet(s.id, s.title)
-            }}>Activate set</button>
-        </div>)
+        return(<SetCard key={s.id} setTitle={s.title} setId={s.id} onChange={()=>{search()}}/>)
     })
 
     async function createNewSet(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
         const id = await newBlankSet(newSetTitle);
         activateSet(id, newSetTitle)
+        search()
     }
 
     return(
