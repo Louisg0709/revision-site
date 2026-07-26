@@ -5,6 +5,8 @@ import { SetContext } from "@/types/SetContext";
 import { useContext, useEffect, useState } from "react"
 import { SetCard } from "./setCard";
 
+import styles from "./setCard.module.css" 
+
 export function FindSets(){
     const [query, setQuery] = useState("");
     const [results, setResults] = useState<{ title: string, id: number }[]>([]);
@@ -12,13 +14,15 @@ export function FindSets(){
 
     const setData = useContext(SetContext)
 
+    useEffect(()=>{search()}, [query]) //Ineffective use of database queries but makes sight feel more reactive.
+
     async function handleSearch(e: React.FormEvent<HTMLFormElement>){
         e.preventDefault();
-        search()
+        //search()
     }
 
     async function search(){
-        const res = await searchSets(query);
+        const res = await searchSets(query); 
         setResults(res)
     }
 
@@ -51,11 +55,11 @@ export function FindSets(){
 
     return(
         <div>
-            <form onSubmit={createNewSet}>
+            <form onSubmit={createNewSet} className={styles.container}>
                 <input onChange={(e)=>{setNewSetTitle(e.target.value)}} type="text" />
-                <button type="submit"> Create new set</button>
+                <button type="submit"> Create new set</button> {/* Submiting is redundant as i moved searching into the onchange */}
             </form>
-            <form onSubmit={handleSearch}>
+            <form onSubmit={handleSearch} className={styles.container}>
                 <input type="text" value={query} onChange={(e)=>{setQuery(e.target.value)}}/>
                 <button type="submit">Search</button>
             </form>

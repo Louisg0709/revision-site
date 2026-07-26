@@ -1,0 +1,21 @@
+.container{
+    margin: 1rem;
+    display: flex;
+    padding: 0.5rem;
+    background-color: whitesmoke;
+    border: 1px #dddd;
+    border-radius: 1rem;
+}
+
+.container button{
+    margin-left: 0.5rem;
+    background-color: silver;
+    border: 1px #dddd;
+    border-radius: 1rem;
+    padding: 0.2rem;
+}
+
+.container button:hover{
+    background-color: gainsboro;
+    border:1px black;
+}

@@ -1,6 +1,7 @@
 import { deleteSet, getQuestions } from "@/lib/databaseActions";
 import { SetContext } from "@/types/SetContext";
 import { useContext, useState } from "react"
+import styles from "./setCard.module.css"
 
 type SetCardProps = {
     setTitle: string,
@@ -28,7 +29,7 @@ export function SetCard({setTitle, setId, onChange=()=>{}}: SetCardProps){
         }))
     }
 
-    return(<div>
+    return(<div className={styles.container}>
         {setTitle}
         <button onClick={()=>{activateSet(setId, setTitle);}}>
             Activate Set
